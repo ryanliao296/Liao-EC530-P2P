@@ -4,7 +4,7 @@ from P2P import P2PClient  # Assuming you have the P2P class in the same directo
 def run_user3():
     client = P2PClient("user3", "127.0.0.1", 6003, "http://127.0.0.1:5000")
     
-    time.sleep(2)  # Allow time for registration
+    time.sleep(2) 
     
     # Block user4
     client.block_user("user4")
