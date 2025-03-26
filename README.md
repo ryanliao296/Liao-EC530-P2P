@@ -1,6 +1,6 @@
 # Peer-to-Peer Messaging System
 
-This project implements a simple peer-to-peer (P2P) messaging system where users can connect, send encrypted messages, and manage users' statuses (blocking and muting). The system also integrates basic server-side blocking and muting features.
+This project implements a simple peer-to-peer (P2P) messaging system where users can connect, send encrypted messages, and manage users' statuses (blocking and muting). The system also integrates basic server-side blocking and muting features. It is hosted within a Flask application.
 
 ## Files Overview
 
