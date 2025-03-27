@@ -77,7 +77,7 @@ class P2PClient:
             return
 
         if peer_id in self.peers:
-            formatted_message = f"{self.user_id}:{message}"  # Ensure correct format
+            formatted_message = f"{self.user_id}:{message}"  
             try:
                 self.peers[peer_id].send(formatted_message.encode())
                 print(f"Message sent to {peer_id}: {message}")
@@ -95,22 +95,22 @@ class P2PClient:
     def handle_connection(self, conn):
         data = conn.recv(1024).decode()
         if not data:
-            return  # Handle the case where no data is received
+            return 
         
         if ':' not in data:
             print(f"Received malformed message: {data}")
-            return  # Ignore improperly formatted messages
+            return 
 
         sender, message = data.split(':', 1)
 
         # Blocked user check
         if sender in self.blocked_users:
             print(f"Message received from blocked user {sender}. Ignoring message.")
-            return  # Block the message silently, but print a message
+            return
 
         # Muted user check
         if sender in self.muted_users:
-            return  # Silently ignore message
+            return  
 
         print(f"{sender}: {message}")
 
@@ -126,7 +126,6 @@ class P2PClient:
             self.blocked_users.remove(peer_id)
             print(f"Unblocked {peer_id}. Current blocked list: {self.blocked_users}")
             
-            # Ensure the connection is active or re-establish it if necessary
             if peer_id not in self.peers:
                 self.reconnect_peer(peer_id)
         else:
