@@ -51,3 +51,52 @@ The client acceps the following commands from the user:
 - /mute <peer_id>: Mute a peer to silently ignore their messages.
 - /unmute <peer_id>: Unmute a peer to allow their messages to be processed.
 - /exit: Exit the chat client.
+
+
+## Building and Running Docker Images
+If you have the `Dockerfile.server` and `Dockerfile.client` in the Github repository and want to build the Docker images locally, follow these steps:
+
+### 1. **Clone the Repository**
+If you have not cloned the repository, use the following command to clone it to your local machine:
+
+```bash
+git clone https://github.com/ryanliao296/Liao-EC530-P2P
+cd Liao-530-P2P
+```
+
+### 2. **Build the Docker Images**
+You need to build two separate images: one for the discovery server and one for the client.
+
+Build the Discover Server Image:
+To build the discovery server image from `Dockerfile.server`, run the following command:
+```bash
+docker build -f Dockerfile.server -t p2p-discovery-server .
+```
+
+Build the Client Image:
+To build the client image from `Dockerfile.client`, run the following command:
+```bash
+docker build -f Dockerfile.client -t p2p-client .
+```
+
+## Running the Docker Images
+Once the Docker images are built, follow these steps to run the server and client containers.
+
+### 1. Run the Discovery Server
+To run the discovery server inn detached mode, use the following command:
+```bash
+docker run -d -p 5000:5000 --name discovery p2p-discovery-server
+```
+
+### 2. Run the Client(s)
+Once the discovery server is running, you can start the p2p-client container. Use the following command:
+```bash
+docker run -it --rm --network host \
+  -e USER_ID=<your_user_id> -e PORT=<port_number> \
+  p2p-client
+```
+
+Again, replace <your_user_id> with a unique username and <port_number> with the port you want to use for communication. The client will register with the discovery server and will be able to discover and communicate with other peers.
+
+### 3. Access the Running Containers
+Once the discovery server and client containers are running, the client will be able to connect to the discovery server. You can interact with both containers as specified in the container's configuration.
